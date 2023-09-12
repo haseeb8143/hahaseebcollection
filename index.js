@@ -7,6 +7,8 @@ import { getAnalytics } from 'firebase/analytics';
 
 import { getDatabase, ref, push, set, get, remove } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Adjusted import
+
+import { gsap } from "gsap";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -220,6 +222,9 @@ function displayPostData(postData) {
 
 
     postContainer.appendChild(postboox);
+
+    gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
+    gsap.to('.animation', { y: '-100rem', duration: 2,delay: 1 })
   }
 
 
@@ -560,6 +565,8 @@ function DeletePost(event) {
       console.error('Error deleting post and replies:', error);
     });
 }
+
+
 
 
 
