@@ -544,7 +544,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 90%;
-        height: 75%;
+        height: 80%;
         z-index: 2;
         text-align: center;
         padding: 10px;
@@ -577,7 +577,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 80%;
-        height: 70%;
+        height: 80%;
         z-index: 2;
         text-align: center;
         padding: 20px;
@@ -592,6 +592,7 @@ button {
         align-items: flex-start;
         /* width: 40%; */
         width: 17rem;
+        font-size: small;
     }
     
     
@@ -663,7 +664,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 80%;
-        height: 70%;
+        height: 85%;
         z-index: 2;
         text-align: center;
         box-sizing: border-box;
