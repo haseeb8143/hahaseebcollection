@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Noto+Sans+Old+Permic&family=Roboto+Mono&family=Roboto:wght@300;400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <title>haha dot seeb</title>
+</head>
+<body>
+
+    <nav class="navbar">
+        <img class="logo" onclick="toggleAbout()" style="width: 150px; margin: 0.3rem;" src="website-logo.png" alt="">
+    </nav>
+    <div class="mainpage">
+
+        <div class="add">
+            <button id="logoutButton" class="hidden" style="width: 4rem; margin-right: 0.5rem;">Logout</button>
+            <button id="loginButton" onclick="toggleLoginPopup()" style="width: 4rem; margin-right: 0.5rem;"><box-icon type='solid' color="#ffffff" name='cool'></box-icon></button>
+            <button onclick="togglePopup()">Add +</button>
+
+        </div>
+
+
+        <div class="about-pop">
+
+            <div class="overlay" id="pop-about"></div>
+
+            
+            <div class="about-div">
+
+                <div class="aboutpic">
+                    <img class="about-pic" src="about-pic.png" alt="">
+                </div>
+                <div class="about-text">
+                    <h3>Reasoning</h3>
+                  <p>I have always valued those brief and quirky encounters with unique individuals, treasuring them as small but meaningful moments that add a touch of nostalgia to my life. These interactions, though seemingly insignificant, have sometimes played a role in altering the trajectory of my life. In honor of these cherished moments, I've crafted a platform, named 'Collection', where people can gather, engage, and embrace their weirdness</p>
+                  <div class="links">
+                    <p>Chalo ab follow karo</p>
+                    <a  href="https://www.instagram.com/haha.seeb/">@haha.seeb</a>
+                    <a href="https://www.instagram.com/bawa.seeb/">@bawa.seeb</a>
+                    <a href="https://www.instagram.com/beautifoot.seeb/">@beautifoot.seeb</a>
+                  </div>
+                  <div class="close">
+                    <p class="about-close-btn" onclick="toggleAbout()"><box-icon name='x-circle' color="#F964F9"></box-icon></p>
+                </div>
+                </div>
+                
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="login-pop">
+
+            <div class="overlay" id="pop-1"></div>
+
+            
+            <div class="login-form">
+                <form id="loginForm">
+                    <div class="close">
+                        <p class="add-close-btn" onclick="toggleLoginPopup()"><box-icon name='x-circle' color="#F964F9"></box-icon></p>
+                    </div>
+
+                    <h3>Bhaag yahan se bkl</h3>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="usernamepass">
+            
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+            
+                    <button class="sub-btn" type="submit">Login</button>
+
+                    <p class="alertPass"></p>
+                  </form>
+            </div>
+
+
+        </div>
+
+        <div class="add-pop">
+
+            <div class="overlay" id="pop-1"></div>
+
+            
+            <div class="pop-form">
+                <form id="postForm">
+                    <div class="close">
+                        <p class="add-close-btn" onclick="togglePopup()"><box-icon name='x-circle' color="#F964F9"></box-icon></p>
+                    </div>
+
+                    <h3>Add a post (plz)</h3>
+                    <!-- Your form fields here, including image upload -->
+                    <div class="pre">
+                        
+
+                        <img id="imagePreview" class="pre-img" src="add-pic.png" alt="">
+                
+                    </div>
+                    <div class="img-select">
+                        <!-- <label for="image">Select an image</label> -->
+                        <input type="file" id="image" accept="image/*" style="display: none;">
+                        <!-- <input type="file" id="fileInput" style="display: none;"> -->
+                        <button id="customFileButton">image +</button>
+                    </div>
+            
+                    <label for="usernam">Username</label>
+                    <input type="text" id="user" name="username" maxlength="15" id="username">
+            
+                    <label for="caption">Caption</label>
+                    <input type="text" name="caption" maxlength="90" id="caption">
+                    <!-- Other form fields like title, caption, etc. -->
+                    <button class="sub-btn" type="submit">Submit</button>
+
+                    <p class="alert"></p>
+                  </form>
+            </div>
+
+            
+        </div>
+
+        <div class="add-com-pop">
+            <div class="overlay" id="pop-2"></div>
+            
+            <div class="com-form">
+                <form class="commForm">
+                    <div class="close">
+                        <p class="add-close-btn" onclick="toggleComPopup(event)"><box-icon name='x-circle' color="#F964F9"></box-icon></p>
+                    </div>
+
+                <h3>Leave a comment</h3>
+
+                    <label for="usernamecom">Username</label>
+                    <input type="text" name="usernamecom" maxlength="15" id="usernamecom">
+            
+                    <label for="comment">Comment</label>
+                    <input type="text" name="comment" maxlength="90" id="comment">
+                    <!-- Other form fields like title, caption, etc. -->
+                    <button class="sub-btn" type="submit">Submit</button>
+
+                    <p class="alertCom"></p>
+                  </form>
+            </div>
+        </div>
+
+        <div class="v-com-pop">
+            <div class="overlay" id="pop-3"></div>
+
+            <div class="v-form">
+                <div class="close">
+                    <p class="v-close-btn"><box-icon name='x-circle' color="#F964F9"></box-icon></p>
+                </div>
+                <h3>Comments</h3>
+                <div class="commentsbox">
+                </div>
+            </div>
+        </div>
+
+        <div class="post-sec">
+            <div class="posts">
+                <!-- <div class="post">
+                    <div class="image">
+                        <img src="" alt="">
+                        <p>hiiii</p>
+                    </div>
+                    <div class="username">
+                        <p>Testing</p>
+                    </div>
+                    <div class="caption">
+                        <p>Lorem ipsum dolor sit.
+                        </p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+<script type="module" src="index.js"></script>
+<script>
+    function togglePopup(){
+ 
+    const alert = document.querySelector(".alert")
+    document.querySelector(".add-pop").classList.toggle("active")
+    alert.textContent = "";
+}
+
+function toggleAbout(){
+ document.querySelector(".about-pop").classList.toggle("active")
+
+}
+
+function toggleLoginPopup(){
+     
+    const alert = document.querySelector(".alert")
+    document.querySelector(".login-pop").classList.toggle("active")
+    alert.textContent = "";
+}
+
+function toggleComPopup(event){
+
+    event.preventDefault();
+
+  // Get the ID from the data attribute of the clicked button
+    const id = event.currentTarget.dataset.postId;
+
+  // Find the form by its class (you may want to use a more specific selector)
+    const form = document.querySelector('.commForm');
+
+  // Set the ID as the form's ID
+    form.id = id;
+    console.log(form.id)
+    const alert = document.querySelector(".alert")
+    document.querySelector(".add-com-pop").classList.toggle("active")
+    
+    alert.textContent = "";
+}
+
+const fileInput = document.getElementById("image");
+const customFileButton = document.getElementById("customFileButton");
+
+// Add a click event listener to the custom button
+customFileButton.addEventListener("click", function (event) {
+  event.preventDefault()
+  fileInput.click(); // Trigger the click event of the file input
+});
+</script>
+</html>
+
