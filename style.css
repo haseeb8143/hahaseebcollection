@@ -8,7 +8,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 }
 
 .logo{
+    width: 400px; height: 150px; margin: 0.3rem;
     transform: translateY(17rem);
+}
+
+.logo-small{
+    width: 150px;
+    margin: 0.3rem
 }
 
 
@@ -52,7 +58,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     position: fixed;
     width: 100vw;
     z-index: 2;
-    height: 8vh;
+    height: 3.5rem;
 }
 .mainpage{
     display: flex;
