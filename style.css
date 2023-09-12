@@ -544,7 +544,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 90%;
-        height: 80%;
+        height: 600px;
         z-index: 2;
         text-align: center;
         padding: 10px;
@@ -561,7 +561,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 70%;
-        height: 55%;
+        height: 400px;
         z-index: 2;
         text-align: center;
         padding: 20px;
@@ -603,7 +603,7 @@ button {
         transform: translate(-50%, -50%) scale(0);
         background: #2c2c2c;
         width: 70%;
-        height: 55%;
+        height: 400px;
         z-index: 2;
         text-align: center;
         padding: 20px;
