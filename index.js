@@ -142,6 +142,11 @@ function clearComments() {
 
 
 function displayPostData(postData) {
+
+
+  
+  
+
     // console.log(postData.caption)
     const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
 
@@ -223,18 +228,10 @@ function displayPostData(postData) {
 
     postContainer.appendChild(postboox);
 
-    if (!sessionStorage.getItem("loadedOnce")){
-      gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
-      gsap.to('.animation', { y: '-100rem', duration: 2,delay: 1 })
-      sessionStorage.setItem("loadedOnce", "true")
-    }
-    else{
-      document.getElementById("logoimg").classList.remove("logo")
-      document.getElementById("logoimg").classList.add("logo-small")
-      document.querySelector(".animation").classList.add("hidden")
 
-
-    }
+    gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
+    gsap.to('.animation', { y: '-100rem', duration: 2,delay: 1 })
+    
 
   }
 
