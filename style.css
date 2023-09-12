@@ -65,12 +65,12 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 }
 
 .posts{
-    margin-top: 1rem;
+    /* margin-top: rem; */
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     width: 90vw;
-    height: 85vh;
+    height: 75vh;
     overflow-y: scroll;
 
 }
