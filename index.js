@@ -26,6 +26,14 @@ const firebaseConfig = {
   measurementId: "G-3ZNLCE0LWJ"
 };
 
+
+if(sessionStorage.getItem("loadedOnce")){
+  document.querySelector(".animation").classList.add('hidden')
+  document.querySelector("#logoimg").classList.add('logo-small')
+  document.querySelector("#logoimg").classList.remove('logo')
+}
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -143,16 +151,105 @@ function clearComments() {
 
 function displayPostData(postData) {
 
+  if (sessionStorage.getItem("loadedOnce"))
+  {
+    // document.querySelector(".animation").classList.add('hidden')
+    // document.querySelector("#logoimg").classList.add('logo-small')
+    // document.querySelector("#logoimg").classList.remove('logo')
 
+     // console.log(postData.caption)
+     const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
   
-  
+     const postboox = document.createElement('div')
+     postboox.classList.add('post')
+   
+     if (sessionStorage.getItem("adminLoggedIn")) {
+       const delbtn = document.createElement("button")
+       delbtn.textContent = "X"
+       delbtn.classList.add("del-btn")
+       delbtn.dataset.postId = postData.key
+       delbtn.addEventListener('click', (event) => DeletePost(event));
+       postboox.appendChild(delbtn);
+     }
+   
+     const postimg = document.createElement('div');
+     postimg.classList.add("image");
+   
+   // Create the img element
+     const imageElement = document.createElement('img');
+     imageElement.src = postData.image; // Set the image source URL
+     imageElement.alt = "Image Alt Text"; // Set alt text for accessibility
+     imageElement.classList.add("post-img")
+   
+   // Append the img element to the postimg div
+     postimg.appendChild(imageElement);
+     // postTitle.textContent = postData.title;
+   
+     const postText = document.createElement('div');
+     postText.classList.add('t-content')
+   
+     const postuser = document.createElement('div');
+   
+     postuser.classList.add("username")
+     const username = document.createElement('p');
+     username.textContent = "@" + postData.username
+   
+     const commDiv = document.createElement('div')
+     commDiv.classList.add('comm-div')
+     //view comments
+     const viewComm = document.createElement('button');
+     viewComm.dataset.postId = postData.key
+     viewComm.classList.add("view-comm")
+     viewComm.id = postData.key
+     viewComm.textContent = "comments"
+     viewComm.addEventListener('click', (event) => toggleComments(event));
+     //addcoemmnts
+     const addCom = document.createElement('button');
+     addCom.dataset.postId = postData.key
+     addCom.classList.add("add-comm")
+     addCom.textContent = "+"
+     addCom.addEventListener('click', (event) => toggleComPopup(event));
+   
+     commDiv.appendChild(addCom)
+     commDiv.appendChild(viewComm)
+   
+   
+     postuser.appendChild(username)
+     postuser.appendChild(commDiv)
+   
+     const postcap = document.createElement('div');
+     postcap.classList.add("caption")
+     const caption = document.createElement('p');
+     caption.textContent = postData.caption
+     postcap.appendChild(caption)
+   
+   
+     postText.appendChild(postuser)
+     postText.appendChild(postcap)
+   
+     
+   
+   
+     // Append the elements to the containerSS
+     
+     postboox.appendChild(postimg);
+     postboox.appendChild(postText);
+   
+   
+     postContainer.appendChild(postboox);
+     
 
+     
+
+}
+  else{
+    
     // console.log(postData.caption)
     const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
-
+  
     const postboox = document.createElement('div')
     postboox.classList.add('post')
-
+  
     if (sessionStorage.getItem("adminLoggedIn")) {
       const delbtn = document.createElement("button")
       delbtn.textContent = "X"
@@ -164,26 +261,26 @@ function displayPostData(postData) {
   
     const postimg = document.createElement('div');
     postimg.classList.add("image");
-
-// Create the img element
+  
+  // Create the img element
     const imageElement = document.createElement('img');
     imageElement.src = postData.image; // Set the image source URL
     imageElement.alt = "Image Alt Text"; // Set alt text for accessibility
     imageElement.classList.add("post-img")
-
-// Append the img element to the postimg div
+  
+  // Append the img element to the postimg div
     postimg.appendChild(imageElement);
     // postTitle.textContent = postData.title;
-
+  
     const postText = document.createElement('div');
     postText.classList.add('t-content')
-
+  
     const postuser = document.createElement('div');
-
+  
     postuser.classList.add("username")
     const username = document.createElement('p');
     username.textContent = "@" + postData.username
-
+  
     const commDiv = document.createElement('div')
     commDiv.classList.add('comm-div')
     //view comments
@@ -199,38 +296,45 @@ function displayPostData(postData) {
     addCom.classList.add("add-comm")
     addCom.textContent = "+"
     addCom.addEventListener('click', (event) => toggleComPopup(event));
-
+  
     commDiv.appendChild(addCom)
     commDiv.appendChild(viewComm)
-
-
+  
+  
     postuser.appendChild(username)
     postuser.appendChild(commDiv)
-
+  
     const postcap = document.createElement('div');
     postcap.classList.add("caption")
     const caption = document.createElement('p');
     caption.textContent = postData.caption
     postcap.appendChild(caption)
-
-
+  
+  
     postText.appendChild(postuser)
     postText.appendChild(postcap)
-
-    
-
   
-    // Append the elements to the container
+    
+  
+  
+    // Append the elements to the containerSS
     
     postboox.appendChild(postimg);
     postboox.appendChild(postText);
-
-
+  
+  
     postContainer.appendChild(postboox);
-
-
+  
+  
+  
+    sessionStorage.setItem("loadedOnce", "true")
     gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
-    gsap.to('.animation', { y: '-100rem', duration: 2,delay: 1 })
+    gsap.to('.animation', { x: '100rem', duration: 1.5,delay: 1 })
+
+    
+  }
+  
+
     
 
   }
@@ -508,7 +612,7 @@ if (sessionStorage.getItem("adminLoggedIn")) {
 
 } else {
   // If it doesn't exist, do something else
-  console.log("No data found in sessionStorage.");
+  console.log("No login data found in sessionStorage.");
 }
 
 

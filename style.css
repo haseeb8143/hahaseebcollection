@@ -541,7 +541,9 @@ button {
     /* background: linear-gradient(0deg, rgba(255,252,0,1) 0%, rgba(255,0,0,1) 22%, rgba(84,82,255,1) 46%, rgba(255,255,255,1) 53%, rgba(138,240,255,1) 76%, rgba(0,84,177,1) 100%);
      */
      /* background: linear-gradient(0deg, rgba(255,153,239,1) 0%, rgba(122,238,255,1) 100%, rgba(0,60,126,1) 100%); */
-     background: linear-gradient(0deg, rgba(195,0,164,1) 0%, rgba(0,47,54,1) 100%, rgba(0,60,126,1) 100%);
+     /* background: linear-gradient(0deg, rgba(195,0,164,1) 0%, rgba(0,47,54,1) 100%, rgba(0,60,126,1) 100%);
+      */
+      background: linear-gradient(0deg, rgba(195,0,164,1) 0%, rgba(211,200,255,1) 50%, rgba(0,60,126,1) 100%);
     width: 100vw;
     height: 100vh;
 }
