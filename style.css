@@ -17,6 +17,10 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     margin: 0.3rem
 }
 
+.logo-small:hover{
+   cursor: pointer;
+}
+
 
 .logo:hover{
     cursor: pointer;
@@ -120,6 +124,10 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     width: 97%;
     overflow-wrap: break-word;
 
+}
+
+.view-comm{
+    font-size: xx-small;
 }
 
 .caption p {
@@ -239,7 +247,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 .about-pop .about-div{
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #2c2c2c;

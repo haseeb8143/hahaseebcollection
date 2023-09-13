@@ -5,7 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
 
-import { getDatabase, ref, push, set, get, remove } from 'firebase/database';
+import { getDatabase, ref, push, set, get, remove} from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Adjusted import
 
 import { gsap } from "gsap";
@@ -150,28 +150,34 @@ function clearComments() {
 
 
 function displayPostData(postData) {
-
+  // const postRef = ref(db, 'posts/');
+  
+  
+  let replyNum;
+  
+  // Fetch data from the "replies" node for the current post
+  
   if (sessionStorage.getItem("loadedOnce"))
   {
     // document.querySelector(".animation").classList.add('hidden')
     // document.querySelector("#logoimg").classList.add('logo-small')
     // document.querySelector("#logoimg").classList.remove('logo')
-
-     // console.log(postData.caption)
-     const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
-  
-     const postboox = document.createElement('div')
-     postboox.classList.add('post')
-   
-     if (sessionStorage.getItem("adminLoggedIn")) {
-       const delbtn = document.createElement("button")
-       delbtn.textContent = "X"
-       delbtn.classList.add("del-btn")
-       delbtn.dataset.postId = postData.key
-       delbtn.addEventListener('click', (event) => DeletePost(event));
-       postboox.appendChild(delbtn);
-     }
-   
+    
+    // console.log(postData.caption)
+    const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
+    
+    const postboox = document.createElement('div')
+    postboox.classList.add('post')
+    
+    if (sessionStorage.getItem("adminLoggedIn")) {
+      const delbtn = document.createElement("button")
+      delbtn.textContent = "X"
+      delbtn.classList.add("del-btn")
+      delbtn.dataset.postId = postData.key
+      delbtn.addEventListener('click', (event) => DeletePost(event));
+      postboox.appendChild(delbtn);
+    }
+    
      const postimg = document.createElement('div');
      postimg.classList.add("image");
    
@@ -197,12 +203,30 @@ function displayPostData(postData) {
      const commDiv = document.createElement('div')
      commDiv.classList.add('comm-div')
      //view comments
-     const viewComm = document.createElement('button');
-     viewComm.dataset.postId = postData.key
-     viewComm.classList.add("view-comm")
-     viewComm.id = postData.key
-     viewComm.textContent = "comments"
-     viewComm.addEventListener('click', (event) => toggleComments(event));
+
+     const repliesRef = ref(db, 'replies/' + postData.key);
+
+        get(repliesRef)
+    .then((snapshot) => {
+        // Initialize a variable to count the replies
+        let replyCount = 0;
+
+        // Iterate through each child node (reply)
+        snapshot.forEach((childSnapshot) => {
+          // Increment the reply count for each child node
+          replyCount++;
+        });
+
+        const viewComm = document.createElement('button');
+        viewComm.dataset.postId = postData.key
+        viewComm.classList.add("view-comm")
+        viewComm.id = postData.key
+        viewComm.textContent = `${replyCount} comments`;
+        viewComm.addEventListener('click', (event) => toggleComments(event));
+        commDiv.appendChild(viewComm)
+
+      })
+
      //addcoemmnts
      const addCom = document.createElement('button');
      addCom.dataset.postId = postData.key
@@ -211,7 +235,6 @@ function displayPostData(postData) {
      addCom.addEventListener('click', (event) => toggleComPopup(event));
    
      commDiv.appendChild(addCom)
-     commDiv.appendChild(viewComm)
    
    
      postuser.appendChild(username)
@@ -244,7 +267,7 @@ function displayPostData(postData) {
 }
   else{
     
-    // console.log(postData.caption)
+
     const postContainer = document.querySelector('.posts'); // Assuming you have a container element in your HTML
   
     const postboox = document.createElement('div')
@@ -284,12 +307,28 @@ function displayPostData(postData) {
     const commDiv = document.createElement('div')
     commDiv.classList.add('comm-div')
     //view comments
-    const viewComm = document.createElement('button');
-    viewComm.dataset.postId = postData.key
-    viewComm.classList.add("view-comm")
-    viewComm.id = postData.key
-    viewComm.textContent = "comments"
-    viewComm.addEventListener('click', (event) => toggleComments(event));
+    const repliesRef = ref(db, 'replies/' + postData.key);
+
+        get(repliesRef)
+    .then((snapshot) => {
+        // Initialize a variable to count the replies
+        let replyCount = 0;
+
+        // Iterate through each child node (reply)
+        snapshot.forEach((childSnapshot) => {
+          // Increment the reply count for each child node
+          replyCount++;
+        });
+
+        const viewComm = document.createElement('button');
+        viewComm.dataset.postId = postData.key
+        viewComm.classList.add("view-comm")
+        viewComm.id = postData.key
+        viewComm.textContent = `${replyCount} comments`;
+        viewComm.addEventListener('click', (event) => toggleComments(event));
+        commDiv.appendChild(viewComm)
+
+      })
     //addcoemmnts
     const addCom = document.createElement('button');
     addCom.dataset.postId = postData.key
@@ -298,7 +337,7 @@ function displayPostData(postData) {
     addCom.addEventListener('click', (event) => toggleComPopup(event));
   
     commDiv.appendChild(addCom)
-    commDiv.appendChild(viewComm)
+    // commDiv.appendChild(viewComm)4
   
   
     postuser.appendChild(username)
@@ -330,6 +369,8 @@ function displayPostData(postData) {
     sessionStorage.setItem("loadedOnce", "true")
     gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
     gsap.to('.animation', { x: '100rem', duration: 1.5,delay: 1 })
+
+
 
     
   }
@@ -434,7 +475,7 @@ function displayPostData(postData) {
   const alertCom = document.querySelector(".alertCom")
 
   commForm.addEventListener('submit', (e) => {
-    // console.log(commForm.id)
+
 
     alert.textContent = ""
 
@@ -442,15 +483,15 @@ function displayPostData(postData) {
   
     // Check if the username input is empty
     if (usercom.value.trim() === '') {
-    //   alert('Please enter a username.');
-    // console.log('usr')
-      alertCom.textContent = "Please select a name"
+
+
+      alertCom.textContent = "Please add a name"
       return; // Stop form submission
     }
   
     // Check if the caption input is empty
     if (comment.value.trim() === '') {
-    //   alert('Please enter a caption.');
+
 
 
       alertCom.textContent = "Please add a comment"
@@ -492,7 +533,7 @@ function displayPostData(postData) {
     }).catch((error) => {
       console.error("Error fetching data:", error);
     });
-    // console.log(commForm.id)
+  
 
   });
 
@@ -516,7 +557,7 @@ function displayPostData(postData) {
     }
 
     if (user.value.trim() != data.userpass | pass.value.trim() != data.password) {
-      alertpass.textContent = "username or passowrd incorrect"
+      alertpass.textContent = "username or password incorrect"
     }
     else{
       sessionStorage.setItem('adminLoggedIn', 'true')
@@ -589,7 +630,6 @@ const imagePreview = document.getElementById('imagePreview');
 // Add an event listener to the file input
 File.addEventListener('change', (e) => {
   const file = e.target.files[0];
-console.log('img prvw')
   if (file) {
     // Read the selected file as a data URL and set it as the img src
     const reader = new FileReader();
@@ -624,8 +664,6 @@ function Deletepic(imageURL) {
         // Create a reference to the image in Firebase Storage
         const imageRefToDelete = storageRef(storage, imageURL);
 
-        console.log(imageURL)
-        // console.log(imageURL)
          deleteObject(imageRefToDelete)
           .then(() => {
             console.log('Image deleted successfully');
@@ -651,7 +689,6 @@ function DeletePost(event) {
       if (snapshot.exists()) {
         const postData = snapshot.val();
         url = postData.image;
-        console.log(url);
 
         // Call Deletepic function here, inside the then block
         deletePromises.push(Deletepic(url));
