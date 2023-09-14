@@ -415,6 +415,15 @@ function displayPostData(postData) {
       alert.textContent = "Please select a name"
       return; // Stop form submission
     }
+
+    const regex = /^[a-zA-Z\s]*$/;
+
+  
+    if (!regex.test(sanUsername)) {
+      alert.textContent = 'only letters in username';
+      return;
+    } 
+
     const sanCaption = sanitizeInput(caption.value)
   
     // Check if the caption input is empty
@@ -494,6 +503,14 @@ function displayPostData(postData) {
       return; // Stop form submission
     }
 
+    const regex = /^[a-zA-Z\s]*$/;
+
+  
+    if (!regex.test(sanUsercom)) {
+      alertCom.textContent = 'only letters in username';
+      return;
+    } 
+
     const sanComment = sanitizeInput(comment.value);
 
   
@@ -510,6 +527,23 @@ function displayPostData(postData) {
     addComment(sanUsercom, sanComment ,postId);
 
   });
+
+  function addComment(usercom,comment,postId) {
+    const newPostRef = push(ref(db, 'replies/' + postId + '/'));
+
+    const repId = newPostRef.key; 
+
+    const postData = {
+      username: usercom,
+      comment: comment,
+    };
+
+    set(ref(db, 'replies/' + postId + '/' + repId), postData);
+    commForm.reset();
+    location.reload();
+
+    }
+  
 
 
 
@@ -567,8 +601,14 @@ function displayPostData(postData) {
     const sanitizedUsername = sanitizeInput(user.value);
     const sanitizedPassword = sanitizeInput(pass.value);
 
+    const regex = /^[a-zA-Z\s]*$/;
 
   
+    if (!regex.test(sanitizedUsername)) {
+      alertpass.textContent = 'only letters in username';
+      return;
+    } 
+
     // Check if the username input is empty
     if (sanitizedUsername.trim() === '') {
       alertpass.textContent = "Please enter a name"
@@ -608,22 +648,7 @@ function displayPostData(postData) {
 
 
   
-  function addComment(usercom,comment,postId) {
-    const newPostRef = push(ref(db, 'replies/' + postId + '/'));
-
-    const repId = newPostRef.key; 
-
-    const postData = {
-      username: usercom,
-      comment: comment,
-    };
-
-    set(ref(db, 'replies/' + postId + '/' + repId), postData);
-    commForm.reset();
-    location.reload();
-
-    }
-  
+ 
   
 
 
