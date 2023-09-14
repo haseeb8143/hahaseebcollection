@@ -494,7 +494,7 @@ function displayPostData(postData) {
       return; // Stop form submission
     }
 
-    const sanComment = sanitizeInput(usercom.value);
+    const sanComment = sanitizeInput(comment.value);
 
   
     // Check if the caption input is empty
