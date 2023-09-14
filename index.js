@@ -406,29 +406,32 @@ function displayPostData(postData) {
       alert.textContent = "Please select an image"
       return; // Stop form submission
     }
+
+    const sanUsername = sanitizeInput(username.value)
   
     // Check if the username input is empty
-    if (username.value.trim() === '') {
+    if (sanUsername.trim() === '') {
     //   alert('Please enter a username.');
       alert.textContent = "Please select a name"
       return; // Stop form submission
     }
+    const sanCaption = sanitizeInput(caption.value)
   
     // Check if the caption input is empty
-    if (caption.value.trim() === '') {
+    if (sanCaption.trim() === '') {
     //   alert('Please enter a caption.');
       alert.textContent = "Please select a caption"
       return; // Stop form submission
     }
     imagetoclear.src = 'add-pic.png';
-    addInfo();
+    addInfo(sanUsername, sanCaption);
 
   });
 
 
 
 
-  function addInfo() {
+  function addInfo(username, caption) {
     // Get the file from the input element
     const file = imageFile.files[0];
   
@@ -449,8 +452,8 @@ function displayPostData(postData) {
       // Now you can save the download URL to the Realtime Database
       const postData = {
         image: downloadURL, // Store the download URL as the image path
-        username: username.value,
-        caption: caption.value,
+        username: username,
+        caption: caption,
       };
   
       // Set the post data in the Realtime Database under the unique post ID
@@ -480,17 +483,22 @@ function displayPostData(postData) {
     alert.textContent = ""
 
     e.preventDefault();
+
+    const sanUsercom = sanitizeInput(usercom.value);
   
     // Check if the username input is empty
-    if (usercom.value.trim() === '') {
+    if (sanUsercom.trim() === '') {
 
 
       alertCom.textContent = "Please add a name"
       return; // Stop form submission
     }
+
+    const sanComment = sanitizeInput(usercom.value);
+
   
     // Check if the caption input is empty
-    if (comment.value.trim() === '') {
+    if (sanComment.trim() === '') {
 
 
 
@@ -499,7 +507,7 @@ function displayPostData(postData) {
     }
 
     const postId = commForm.id
-    addComment(postId);
+    addComment(sanUsercom, sanComment ,postId);
 
   });
 
@@ -538,25 +546,43 @@ function displayPostData(postData) {
   });
 
 
+  function sanitizeInput(input) {
+    // Replace potentially dangerous characters with safe characters
+    const sanitizedInput = input
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+      
+    return sanitizedInput;
+  }
+
+
   function loginValidation(data) {
+
+
     alertpass.textContent = ""
+
+    const sanitizedUsername = sanitizeInput(user.value);
+    const sanitizedPassword = sanitizeInput(pass.value);
 
 
   
     // Check if the username input is empty
-    if (user.value.trim() === '') {
+    if (sanitizedUsername.trim() === '') {
       alertpass.textContent = "Please enter a name"
       return; // Stop form submission
     }
   
     // Check if the caption input is empty
-    if (pass.value.trim() === '') {
+    if (sanitizedPassword.trim() === '') {
     
       alertpass.textContent = "Please provide password"
       return; // Stop form submission
     }
 
-    if (user.value.trim() != data.userpass | pass.value.trim() != data.password) {
+    if (sanitizedUsername.trim() != data.userpass | sanitizedPassword.trim() != data.password) {
       alertpass.textContent = "username or password incorrect"
     }
     else{
@@ -582,14 +608,14 @@ function displayPostData(postData) {
 
 
   
-  function addComment(postId) {
+  function addComment(usercom,comment,postId) {
     const newPostRef = push(ref(db, 'replies/' + postId + '/'));
 
     const repId = newPostRef.key; 
 
     const postData = {
-      username: usercom.value,
-      comment: comment.value,
+      username: usercom,
+      comment: comment,
     };
 
     set(ref(db, 'replies/' + postId + '/' + repId), postData);
