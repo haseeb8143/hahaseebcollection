@@ -37,11 +37,11 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
 
-const db = getDatabase(app); // Use getDatabase to get a reference to the Realtime Database
-const storage = getStorage(app); // Use getStorage to get a reference to Firebase Storage
+// const db = getDatabase(app); // Use getDatabase to get a reference to the Realtime Database
+// const storage = getStorage(app); // Use getStorage to get a reference to Firebase Storage
 
 
 // uncomment when back online=======================================
