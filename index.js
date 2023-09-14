@@ -27,11 +27,13 @@ const firebaseConfig = {
 };
 
 
-if(sessionStorage.getItem("loadedOnce")){
-  document.querySelector(".animation").classList.add('hidden')
-  document.querySelector("#logoimg").classList.add('logo-small')
-  document.querySelector("#logoimg").classList.remove('logo')
-}
+// uncomment tomorrow ==============================
+
+// if(sessionStorage.getItem("loadedOnce")){
+//   document.querySelector(".animation").classList.add('hidden')
+//   document.querySelector("#logoimg").classList.add('logo-small')
+//   document.querySelector("#logoimg").classList.remove('logo')
+// }
 
 
 // Initialize Firebase
@@ -42,50 +44,54 @@ const db = getDatabase(app); // Use getDatabase to get a reference to the Realti
 const storage = getStorage(app); // Use getStorage to get a reference to Firebase Storage
 
 
-const postRef = ref(db, 'posts/'); // Use ref to get a reference to a location in the database
+// uncomment when back online=======================================
 
-// Fetch data from the database
-get(postRef).then((snapshot) => {
+// const postRef = ref(db, 'posts/'); // Use ref to get a reference to a location in the database
+
+// // Fetch data from the database
+// get(postRef).then((snapshot) => {
   
-  get(postRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        const postData = {
-          key: childSnapshot.key,
-          image: childSnapshot.child("/image").val(),
-          username: childSnapshot.child("/username").val(),
-          caption: childSnapshot.child("/caption").val(),
+//   get(postRef).then((snapshot) => {
+//     if (snapshot.exists()) {
+//       snapshot.forEach((childSnapshot) => {
+//         const postData = {
+//           key: childSnapshot.key,
+//           image: childSnapshot.child("/image").val(),
+//           username: childSnapshot.child("/username").val(),
+//           caption: childSnapshot.child("/caption").val(),
               
-          // Add other properties as needed
-        };
-        // Call your displayPostData function here
-         displayPostData(postData);
-      });
-    } else {
-      console.log("No data available");
-    }
-  });
-}).catch((error) => {
-  console.error("Error fetching data:", error);
-});
+//           // Add other properties as needed
+//         };
+//         // Call your displayPostData function here
+//          displayPostData(postData);
+//       });
+//     } else {
+//       console.log("No data available");
+//     }
+//   });
+// }).catch((error) => {
+//   console.error("Error fetching data:", error);
+// });
 
-document.querySelector('.v-close-btn').addEventListener('click', (event) => toggleComments(event))
+// document.querySelector('.v-close-btn').addEventListener('click', (event) => toggleComments(event))
 
-function toggleComments(event){
-  event.preventDefault();
+// function toggleComments(event){
+//   event.preventDefault();
 
-  const id = event.currentTarget.dataset.postId;
+//   const id = event.currentTarget.dataset.postId;
 
-  // const alert = document.querySelector(".alert")
-  document.querySelector(".v-com-pop").classList.toggle("active")
-  if (document.querySelector(".v-com-pop").classList.contains("active")) {
-     displayComments(id);
-  }
-  else{
-    clearComments();
-  }
-  // alert.textContent = "";
-}
+//   // const alert = document.querySelector(".alert")
+//   document.querySelector(".v-com-pop").classList.toggle("active")
+//   if (document.querySelector(".v-com-pop").classList.contains("active")) {
+//      displayComments(id);
+//   }
+//   else{
+//     clearComments();
+//   }
+//   // alert.textContent = "";
+// }
+
+
 
 
 function displayComments(id) {
@@ -367,8 +373,8 @@ function displayPostData(postData) {
   
   
     sessionStorage.setItem("loadedOnce", "true")
-    gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
-    gsap.to('.animation', { x: '100rem', duration: 1.5,delay: 1 })
+    // gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
+    // gsap.to('.animation', { x: '100rem', duration: 1.5,delay: 1 })
 
 
 
