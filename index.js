@@ -49,26 +49,55 @@ const storage = getStorage(app); // Use getStorage to get a reference to Firebas
 const postRef = ref(db, 'posts/'); // Use ref to get a reference to a location in the database
 
 // Fetch data from the database
-get(postRef).then((snapshot) => {
+// get(postRef).then((snapshot) => {
   
-  get(postRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        const postData = {
-          key: childSnapshot.key,
-          image: childSnapshot.child("/image").val(),
-          username: childSnapshot.child("/username").val(),
-          caption: childSnapshot.child("/caption").val(),
+//   get(postRef).then((snapshot) => {
+//     if (snapshot.exists()) {
+//       snapshot.forEach((childSnapshot) => {
+//         const postData = {
+//           key: childSnapshot.key,
+//           image: childSnapshot.child("/image").val(),
+//           username: childSnapshot.child("/username").val(),
+//           caption: childSnapshot.child("/caption").val(),
               
-          // Add other properties as needed
-        };
-        // Call your displayPostData function here
-         displayPostData(postData);
-      });
-    } else {
-      console.log("No data available");
-    }
-  });
+//           // Add other properties as needed
+//         };
+//         // Call your displayPostData function here
+//          displayPostData(postData);
+//       });
+//     } else {
+//       console.log("No data available");
+//     }
+//   });
+// }).catch((error) => {
+//   console.error("Error fetching data:", error);
+// });
+
+// Fetch data from the database
+get(postRef).then((snapshot) => {
+  if (snapshot.exists()) {
+    // Convert snapshot to an array
+    const postsArray = [];
+    snapshot.forEach((childSnapshot) => {
+      const postData = {
+        key: childSnapshot.key,
+        image: childSnapshot.child("/image").val(),
+        username: childSnapshot.child("/username").val(),
+        caption: childSnapshot.child("/caption").val(),
+      };
+      postsArray.push(postData);
+    });
+
+    // Reverse the array
+    const reversedPostsArray = postsArray.reverse();
+
+    // Iterate over the reversed array
+    reversedPostsArray.forEach((postData) => {
+      displayPostData(postData);
+    });
+  } else {
+    console.log("No data available");
+  }
 }).catch((error) => {
   console.error("Error fetching data:", error);
 });
@@ -91,68 +120,6 @@ function toggleComments(event){
   // alert.textContent = "";
 }
 
-
-
-
-function displayComments(id) {
-  // const commentsArray = [];
-  const postRef = ref(db, 'replies/' + id); // Use ref to get a reference to a location in the database
-
-  // Fetch data from the database
-  get(postRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      snapshot.forEach((childSnapshot) => {
-        const commentKey = childSnapshot.key;
-        const commentData = {
-          username: childSnapshot.child("username").val(),
-          comment: childSnapshot.child("comment").val(),
-        };
-        // console.log(`Comment key: ${commentKey}`);
-                // commentsArray.push(commentData)
-                commentsBox(commentData);
-        // Call your displayPostData function here
-        // displayPostData(commentData);
-      });
-    } else {
-      // No comments available for this ID
-      console.log("No comments available for ID: " + id);
-    }
-  }).catch((error) => {
-    console.error("Error fetching comments:", error);
-  });
-
-}
-
-
-function commentsBox(postData){
-
-    const comContainer = document.querySelector('.commentsbox');
-      const comdiv = document.createElement('div');
-      comdiv.classList.add('comment-div')
-      const username = document.createElement('div');
-      username.classList.add('username-comment')
-      username.textContent = '@' + postData.username;
-      const comment = document.createElement('div');
-      comment.classList.add('comment-comment')
-      comment.textContent = postData.comment;
-  
-      comdiv.appendChild(username);
-      comdiv.appendChild(comment);
-
-      comContainer.appendChild(comdiv)
-
-    
- 
-
-}
-
-function clearComments() {
-  const comContainer = document.querySelector('.commentsbox'); // Replace with your actual class or ID
-
-  while (comContainer.firstChild) {
-    comContainer.removeChild(comContainer.firstChild);
-  }
-}
 
 
 function displayPostData(postData) {
@@ -385,6 +352,72 @@ function displayPostData(postData) {
     
 
   }
+
+
+
+
+function displayComments(id) {
+  // const commentsArray = [];
+  const postRef = ref(db, 'replies/' + id); // Use ref to get a reference to a location in the database
+
+  // Fetch data from the database
+  get(postRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        const commentKey = childSnapshot.key;
+        const commentData = {
+          username: childSnapshot.child("username").val(),
+          comment: childSnapshot.child("comment").val(),
+        };
+        // console.log(`Comment key: ${commentKey}`);
+                // commentsArray.push(commentData)
+                commentsBox(commentData);
+        // Call your displayPostData function here
+        // displayPostData(commentData);
+      });
+    } else {
+      // No comments available for this ID
+      console.log("No comments available for ID: " + id);
+    }
+  }).catch((error) => {
+    console.error("Error fetching comments:", error);
+  });
+
+}
+
+
+function commentsBox(postData){
+
+    const comContainer = document.querySelector('.commentsbox');
+      const comdiv = document.createElement('div');
+      comdiv.classList.add('comment-div')
+      const username = document.createElement('div');
+      username.classList.add('username-comment')
+      username.textContent = '@' + postData.username;
+      const comment = document.createElement('div');
+      comment.classList.add('comment-comment')
+      comment.textContent = postData.comment;
+  
+      comdiv.appendChild(username);
+      comdiv.appendChild(comment);
+
+      comContainer.appendChild(comdiv)
+
+    
+ 
+
+}
+
+function clearComments() {
+  const comContainer = document.querySelector('.commentsbox'); // Replace with your actual class or ID
+
+  while (comContainer.firstChild) {
+    comContainer.removeChild(comContainer.firstChild);
+  }
+}
+
+
+
 
 
 
