@@ -340,8 +340,8 @@ function displayPostData(postData) {
   
   
     sessionStorage.setItem("loadedOnce", "true")
-    gsap.to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
-    gsap.to('.animation', { x: '100rem', duration: 1.5,delay: 1 })
+    .to('.logo', {y: "-35%",  delay:0.5, duration: 0.5, scale: 0.3});
+    gsap.to('.animation', { x: '100vw', duration: 1.5,delay: 1 })
 
 
 
