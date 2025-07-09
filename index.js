@@ -49,31 +49,6 @@ const storage = getStorage(app); // Use getStorage to get a reference to Firebas
 const postRef = ref(db, 'posts/'); // Use ref to get a reference to a location in the database
 
 // Fetch data from the database
-// get(postRef).then((snapshot) => {
-  
-//   get(postRef).then((snapshot) => {
-//     if (snapshot.exists()) {
-//       snapshot.forEach((childSnapshot) => {
-//         const postData = {
-//           key: childSnapshot.key,
-//           image: childSnapshot.child("/image").val(),
-//           username: childSnapshot.child("/username").val(),
-//           caption: childSnapshot.child("/caption").val(),
-              
-//           // Add other properties as needed
-//         };
-//         // Call your displayPostData function here
-//          displayPostData(postData);
-//       });
-//     } else {
-//       console.log("No data available");
-//     }
-//   });
-// }).catch((error) => {
-//   console.error("Error fetching data:", error);
-// });
-
-// Fetch data from the database
 get(postRef).then((snapshot) => {
   if (snapshot.exists()) {
     // Convert snapshot to an array
