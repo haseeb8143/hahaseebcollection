@@ -8,6 +8,28 @@ import { getAnalytics } from 'firebase/analytics';
 import { getDatabase, ref, push, set, get, remove} from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Adjusted import
 
+// uncomment tomorrow ==============================
+
+if(sessionStorage.getItem("loadedOnce")){
+  document.querySelector(".animation").classList.add('hidden')
+  document.querySelector("#logoimg").classList.add('logo-small')
+  document.querySelector("#logoimg").classList.remove('logo')
+}
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+const db = getDatabase(app); // Use getDatabase to get a reference to the Realtime Database
+const storage = getStorage(app); // Use getStorage to get a reference to Firebase Storage
+
+
+// uncomment when back online=======================================
+
+const postRef = ref(db, 'posts/'); // Use ref to get a reference to a location in the database
+
+
  const postForm = document.getElementById('postForm');
  const imageFile = document.getElementById('image');
  const username = document.getElementById('user');
