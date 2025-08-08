@@ -1,3 +1,12 @@
+import 'boxicons'
+
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+
+
+import { getDatabase, ref, push, set, get, remove} from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Adjusted import
+
 function displayPostData(postData) {
     // const postRef = ref(db, 'posts/');
     

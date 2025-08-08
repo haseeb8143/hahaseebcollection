@@ -1,4 +1,13 @@
  //add post form
+ import 'boxicons'
+
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+
+
+import { getDatabase, ref, push, set, get, remove} from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'; // Adjusted import
+
  const postForm = document.getElementById('postForm');
  const imageFile = document.getElementById('image');
  const username = document.getElementById('user');
